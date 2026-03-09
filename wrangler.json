@@ -1,5 +1,6 @@
 {
 	"name": "casa-cubana-mama-nancy",
+	"account_id": "f2093d77b08bb8e788bbe42524c06ebf",
 	"compatibility_date": "2025-10-08",
 	"compatibility_flags": ["nodejs_compat"],
 	"main": "./dist/_worker.js/index.js",
