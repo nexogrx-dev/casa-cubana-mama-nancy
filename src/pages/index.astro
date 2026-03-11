@@ -1,1149 +1,392 @@
 ---
-// Casa Cubana Mamá Nancy — Homepage
-// Source: MASTER_CONTEXT.md, HANDOFF_TO_CLAUDE.md, 02_story/historia.md, 05_web/textos_web.md
+import Hero      from '../components/Hero.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Casa      from '../components/Casa.astro';
+import Comida    from '../components/Comida.astro';
+import Tragos    from '../components/Tragos.astro';
+import Memorias  from '../components/Memorias.astro';
+import Reserva   from '../components/Reserva.astro';
+
+// Global CSS (bundled by Astro)
+import '../styles/tokens.css';
+import '../styles/layout.css';
+import '../styles/animations.css';
+
+// Read content from research markdown files
+const heroMd     = import.meta.glob('../../research/hero.md',     { eager: true });
+const nancyMd    = import.meta.glob('../../research/nancy.md',    { eager: true });
+const casaMd     = import.meta.glob('../../research/casa.md',     { eager: true });
+const comidaMd   = import.meta.glob('../../research/comida.md',   { eager: true });
+const coctelesMd = import.meta.glob('../../research/cocteles.md', { eager: true });
+
+const hero     = (Object.values(heroMd)[0]     as any).frontmatter;
+const nancy    = (Object.values(nancyMd)[0]    as any).frontmatter;
+const casa     = (Object.values(casaMd)[0]     as any).frontmatter;
+const comida   = (Object.values(comidaMd)[0]   as any).frontmatter;
+const cocteles = (Object.values(coctelesMd)[0] as any).frontmatter;
+
+const waLink = `https://wa.me/34634080799?text=${encodeURIComponent("Hola Mamá Nancy, ¿está la casa abierta hoy?")}`;
+
+const siteName = "Casa Cubana Mamá Nancy";
+const siteDesc = "Bar cubano en Granada. La cocina de Nancy: mojitos, ropa vieja y conversación. No es un restaurante — es su casa.";
+const canonical = "https://casacubana-mama-nancy.pages.dev/";
 ---
 
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={siteDesc} />
+  <title>{siteName} — Granada</title>
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content={canonical} />
+  <meta property="og:title"       content={siteName} />
+  <meta property="og:description" content={siteDesc} />
+  <meta property="og:image"       content="/images/hero.webp" />
+  <meta property="og:locale"      content="es_ES" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content={siteName} />
+  <meta name="twitter:description" content={siteDesc} />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Primary meta -->
-  <title>Casa Cubana Mamá Nancy — Coctelería cubana en Granada</title>
-  <meta name="description" content="Coctelería cubana y comida casera en Granada. Especialidad en Mojitos y platos tradicionales. Calle Duquesa 31, Centro." />
-  <link rel="canonical" href="https://casacubana-mama-nancy.pages.dev/" />
-
-  <!-- Open Graph — optimizado para WhatsApp y redes sociales -->
-  <meta property="og:type" content="restaurant" />
-  <meta property="og:site_name" content="Casa Cubana Mamá Nancy" />
-  <meta property="og:title" content="Casa Cubana Mamá Nancy — Mojitos y comida cubana en Granada" />
-  <meta property="og:description" content="Una casita cubana en el centro de Granada. Mojitos, música y buenas conversaciones. Calle Duquesa 31." />
-  <meta property="og:url" content="https://casacubana-mama-nancy.pages.dev/" />
-  <meta property="og:locale" content="es_ES" />
-  <!-- og:image: reemplazar con foto real del local para tarjeta WhatsApp óptima -->
-  <meta property="og:image" content="https://casacubana-mama-nancy.pages.dev/og-image.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Casa Cubana Mamá Nancy — bar cubano en el centro de Granada" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Casa Cubana Mamá Nancy — Mojitos y comida cubana en Granada" />
-  <meta name="twitter:description" content="Una casita cubana en el centro de Granada. Mojitos, música y buenas conversaciones." />
-  <meta name="twitter:image" content="https://casacubana-mama-nancy.pages.dev/og-image.jpg" />
-
-  <!-- JSON-LD: Restaurant (Schema.org) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Casa Cubana Mamá Nancy",
-    "description": "Coctelería cubana y comida casera en Granada. Especialidad en Mojitos y platos tradicionales.",
-    "url": "https://casacubana-mama-nancy.pages.dev/",
-    "telephone": "+34634080799",
-    "servesCuisine": "Cuban",
-    "priceRange": "€€",
-    "currenciesAccepted": "EUR",
-    "paymentAccepted": "Cash, Credit Card",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Calle Duquesa 31",
-      "addressLocality": "Granada",
-      "addressRegion": "Andalucía",
-      "postalCode": "18001",
-      "addressCountry": "ES"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 37.1786553,
-      "longitude": -3.6031193
-    },
-    "sameAs": [
-      "https://www.instagram.com/cafebarmamanancy/",
-      "https://www.facebook.com/casacubanadenancy/"
-    ],
-    "menu": "https://casacubana-mama-nancy.pages.dev/#cocina",
-    "hasMap": "https://maps.google.com/?q=37.1786553,-3.6031193",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "description": "Apertura flexible. Consultar disponibilidad directamente."
-    }
-  }
-  </script>
-
+  <!-- Fonts: preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Fonts: load -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&family=Caveat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Casa Cubana Mamá Nancy",
+      "description": "Bar cubano en Granada con cocina casera cubana y cócteles.",
+      "url": "https://casacubana-mama-nancy.pages.dev",
+      "telephone": "+34634080799",
+      "servesCuisine": ["Cubana", "Caribeña"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle Duquesa 31",
+        "addressLocality": "Granada",
+        "postalCode": "18001",
+        "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.1786553,
+        "longitude": -3.6031193
+      },
+      "sameAs": ["https://www.instagram.com/cafebarmamanancy"]
+    }
+  </script>
 </head>
+
 <body>
 
-  <!-- NAV -->
-  <header class="site-nav">
-    <div class="nav-inner">
-      <a href="#hero" class="nav-brand">Casa Cubana Mamá Nancy</a>
-      <nav aria-label="Navegación principal">
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+
+      <!-- Brand -->
+      <a href="#inicio" class="nav__brand" aria-label="Ir al inicio">
+        <span class="brand__name">Nancy</span>
+        <span class="brand__tag">Granada</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <nav class="nav__links" aria-label="Navegación principal">
         <a href="#la-casa">La Casa</a>
-        <a href="#sabores-de-cuba">Sabores de Cuba</a>
-        <a href="#cocteles">Cócteles</a>
-        <a href="#ambiente">Ambiente</a>
-        <a href="#contacto">Cómo llegar</a>
+        <a href="#comida">La Mesa</a>
+        <a href="#tragos">Los Tragos</a>
+        <a href="#memorias">Memorias</a>
+        <a href="#reserva" class="nav__cta-link">Escríbeme</a>
       </nav>
+
+      <!-- Mobile: WhatsApp icon -->
+      <a href={waLink} class="nav__wa-mobile" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero" aria-label="Portada">
-    <div class="hero-inner">
-      <p class="hero-lugar">Granada, España</p>
-      <h1 class="hero-title">Casa Cubana<br />Mamá Nancy</h1>
-      <p class="hero-sub1">Una pequeña casa abierta.</p>
-      <p class="hero-sub2">
-        Mojitos, música y buenas conversaciones.<br />
-        No abrimos todos los días.
-      </p>
-      <div class="hero-ctas">
-        <a
-          href="#apertura"
-          class="btn btn-primary"
-          aria-label="Consultar apertura"
-        >
-          Consultar apertura
-        </a>
-        <a href="#contacto" class="btn btn-secondary">
-          Cómo llegar
-        </a>
+  <!-- ═══════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════ -->
+  <main id="main">
+    <Hero      tagline={hero.tagline}    note={hero.note} />
+    <Manifesto quote={nancy.quote} />
+    <Casa      highlight={casa.highlight} />
+    <Comida    intro={comida.intro}      items={comida.items} />
+    <Tragos    intro={cocteles.intro}    items={cocteles.items} />
+    <Memorias />
+    <Reserva />
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">Casa Cubana Mamá Nancy</p>
+      <p class="footer__address">Calle Duquesa 31 · Granada · España</p>
+      <div class="footer__links">
+        <a href={waLink} target="_blank" rel="noopener">WhatsApp</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://instagram.com/cafebarmamanancy" target="_blank" rel="noopener">Instagram</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://maps.google.com/?q=37.1786553,-3.6031193" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
-      <p class="hero-helper">
-        Nuestro espacio es pequeño y personal.<br />
-        Para saber si estamos abiertos hoy,<br />
-        escríbenos.
-      </p>
-    </div>
-    <div class="hero-deco" aria-hidden="true">
-      <span>🍹</span>
-    </div>
-  </section>
-
-  <!-- MANIFESTO -->
-  <section id="manifesto" class="section section-manifesto" aria-label="Filosofía">
-    <div class="container prose-center">
-      <blockquote class="manifesto-quote">
-        Mi negocio es la convivencia.<br />
-        Transmitir el calor humano<br />
-        y el amor a la vida.
-      </blockquote>
-      <p class="manifesto-attr">— Mamá Nancy</p>
-    </div>
-  </section>
-
-  <!-- LA CASA -->
-  <section id="la-casa" class="section section-crema">
-    <div class="container prose-center">
-      <p class="tagline">La comida y la bebida son la excusa.<br />La conversación es lo importante.</p>
-    </div>
-  </section>
-
-  <!-- SABORES DE CUBA -->
-  <section id="sabores-de-cuba" class="section section-crema">
-    <div class="container">
-      <h2 class="section-title">Sabores de Cuba</h2>
-      <p class="section-lead menu-intro">
-        Platos caseros, preparados con calma.<br />
-        Sin pretensiones, solo calor humano.
-      </p>
-      <ul class="drinks-grid" role="list">
-        <li class="drink-card">
-          <strong class="drink-name">Mojito Mamá Nancy</strong>
-          <em class="drink-tag">Pa' alegrarte la vida.</em>
-          <p class="drink-desc">Lima fresca, menta y ron. La versión de la casa.</p>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Piña Colada</strong>
-          <em class="drink-tag">Una pasada.</em>
-          <p class="drink-desc">Cremosa, tropical y muy suave.</p>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">La Polla de Obama</strong>
-          <em class="drink-tag">Pa' los más atrevidos.</em>
-          <p class="drink-desc">Cóctel intenso y divertido, para quienes quieren algo diferente.</p>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Morir Soñando</strong>
-          <em class="drink-tag">Sabor que embelesa.</em>
-          <p class="drink-desc">Bebida tradicional caribeña, dulce y refrescante.</p>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Guasaco</strong>
-          <em class="drink-tag">Pa' que te pongas guapo o guapa.</em>
-          <p class="drink-desc">Cóctel tropical con carácter fresco.</p>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Sangría</strong>
-          <em class="drink-tag">Pa' que te rías.</em>
-          <p class="drink-desc">Versión alegre, pensada para compartir.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- COCINA -->
-  <section id="cocina" class="section section-crema">
-    <div class="container">
-      <h2 class="section-title">Lo que preparamos<br />en casa hoy</h2>
-      <p class="section-lead menu-intro">
-        No hay carta fija.<br />
-        Cocinamos lo que hay ese día,<br />
-        como en cualquier casa.
-      </p>
-      <ul class="dishes-grid" role="list">
-        <li class="dish-item">
-          <strong class="dish-name">Moros y cristianos</strong>
-          <span class="dish-desc">Arroz con frijoles negros, uno de los platos más tradicionales de la cocina cubana.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Frituras de malanga</strong>
-          <span class="dish-desc">Frituras crujientes de malanga, muy típicas de la cocina casera cubana.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Pollo a la criolla</strong>
-          <span class="dish-desc">Pollo cocinado lentamente en salsa criolla con tomate, ajo y especias.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Pescado fresco</strong>
-          <span class="dish-desc">A la plancha o en salsa, acompañado de guarniciones tradicionales.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Chicharritas de plátano</strong>
-          <span class="dish-desc">Láminas crujientes de plátano verde fritas, ideales para picar y compartir.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Guayaba con queso</strong>
-          <span class="dish-desc">Postre clásico de guayaba dulce acompañada de queso.</span>
-        </li>
-        <li class="dish-item">
-          <strong class="dish-name">Dulces tradicionales</strong>
-          <span class="dish-desc">Postres sencillos inspirados en la repostería cubana.</span>
-        </li>
-      </ul>
-      <p class="carta-nota">
-        <em>La carta puede variar según el momento y la disponibilidad.</em>
-      </p>
-    </div>
-  </section>
-
-  <!-- CÓCTELES -->
-  <section id="cocteles" class="section section-menta">
-    <div class="container">
-      <h2 class="section-title section-title--light">Cócteles</h2>
-      <p class="section-lead section-lead--light">
-        Mojitos y clásicos caribeños para soltar la lengua.
-      </p>
-      <ul class="drinks-grid" role="list">
-        <li class="drink-card">
-          <strong class="drink-name">Mojito Mamá Nancy</strong>
-          <span class="drink-desc">Lima, menta y buen ron.</span>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Piña Colada</strong>
-          <span class="drink-desc">Cremosa, suave y tropical.</span>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">La Polla de Obama</strong>
-          <span class="drink-desc">Intenso y divertido.</span>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Morir Soñando</strong>
-          <span class="drink-desc">Dulce y refrescante.</span>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Guasaco</strong>
-          <span class="drink-desc">Caribe fresco en el vaso.</span>
-        </li>
-        <li class="drink-card">
-          <strong class="drink-name">Sangría</strong>
-          <span class="drink-desc">Para compartir entre varios.</span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- AMBIENTE -->
-  <section id="ambiente" class="section section-naranja">
-    <div class="container prose-center">
-      <h2 class="section-title section-title--light">Ambiente</h2>
-      <div class="historia-text">
-        <p>
-          Si sales buscando un restaurante formal, este no es el sitio.
-          Esto es una casa pequeña. 
-        </p>
-        <p>
-          Aquí llegas, te sientas donde haya hueco, y pides un mojito. 
-          A veces vienes solo y terminas hablando con el de al lado. 
-          A veces vienes con amigos y la noche se alarga.
-        </p>
-        <p>
-          Música cubana de fondo. Luz cálida. Sabor a hogar caribeño. 
-          Un lugar para echar el freno, sonreír, y sentirte cuidado.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- APERTURA -->
-  <section id="apertura" class="section section-menta-dark">
-    <div class="container prose-center">
-      <h2 class="section-title section-title--light">Consultar apertura</h2>
-      <p class="apertura-text">
-        Nuestra casa no abre todos los días.<br />
-        Abrimos cuando estamos listos para recibirte. 
-      </p>
-      <p class="apertura-text">
-        Mándanos un mensaje por WhatsApp.<br />
-        Te diremos si hoy hay mojitos y calor humano.
-      </p>
-      <a
-        href="https://wa.me/34634080799?text=Hola%20Mam%C3%A1%20Nancy%2C%20%C2%BFest%C3%A1%20la%20casa%20abierta%20hoy%3F"
-        class="btn btn-wa-light"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Consultar apertura por WhatsApp"
-      >
-        Hablar con la casa
-      </a>
-    </div>
-  </section>
-
-  <!-- CONTACTO -->
-  <section id="contacto" class="section section-madera">
-    <div class="container">
-      <h2 class="section-title section-title--light">Cómo llegar</h2>
-      <div class="contacto-grid">
-        <div class="contacto-block">
-          <h3 class="contacto-label">Dirección</h3>
-          <a
-            href="https://maps.google.com/?q=37.1786553,-3.6031193"
-            class="contacto-link contacto-link--light"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Ver en Google Maps"
-          >
-            Calle Duquesa 31<br />
-            Centro · 18001 Granada<br />
-            Andalucía, España<br /><br />
-            <span class="contacto-sub">A pocos minutos a pie de la Catedral de Granada.</span>
-          </a>
-        </div>
-        <div class="contacto-block">
-          <h3 class="contacto-label">Teléfono / WhatsApp</h3>
-          <a href="tel:+34634080799" class="contacto-link contacto-link--light">
-            +34 634 08 07 99
-          </a>
-        </div>
-        <div class="contacto-block">
-          <h3 class="contacto-label">Instagram</h3>
-          <a
-            href="https://www.instagram.com/cafebarmamanancy/"
-            class="contacto-link contacto-link--light"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil de Instagram"
-          >
-            @cafebarmamanancy
-          </a>
-        </div>
-      </div>
-      <div class="contacto-ctas">
-        <a
-          href="https://wa.me/34634080799?text=Hola%20Mam%C3%A1%20Nancy%2C%20%C2%BFest%C3%A1%20la%20casa%20abierta%20hoy%3F"
-          class="btn btn-primary"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Escribir por WhatsApp"
-        >
-          Escribir un WhatsApp
-        </a>
-        <a
-          href="https://www.instagram.com/cafebarmamanancy/"
-          class="btn btn-ig"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Ver en Instagram"
-        >
-          Ver Instagram
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span class="footer-brand">Casa Cubana Mamá Nancy</span>
-      <span class="footer-sep" aria-hidden="true">·</span>
-      <a
-        href="https://www.instagram.com/cafebarmamanancy/"
-        class="footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram de Casa Cubana Mamá Nancy"
-      >
-        @cafebarmamanancy
-      </a>
-      <span class="footer-sep" aria-hidden="true">·</span>
-      <span class="footer-copy">un trocito de La Habana en Granada.</span>
+      <p class="footer__copy">© {new Date().getFullYear()} Casa Cubana Mamá Nancy</p>
     </div>
   </footer>
 
-  <!-- FLOATING WHATSAPP — visible on all screens -->
-  <a
-    href="https://wa.me/34634080799?text=Hola%20Mam%C3%A1%20Nancy%2C%20%C2%BFest%C3%A1%20la%20casa%20abierta%20hoy%3F"
-    class="wa-float"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Escríbele a Mamá Nancy por WhatsApp"
-  >
-    <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  <!-- ═══════════════════════════════════
+       FLOATING WHATSAPP
+  ═══════════════════════════════════ -->
+  <a href={waLink} class="float-wa" target="_blank" rel="noopener noreferrer" aria-label="Escríbeme por WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
-    <span class="wa-label">¿Está la casa abierta?</span>
+    <span class="float-wa__label">¿Está abierta?</span>
   </a>
 
 </body>
 </html>
 
-<style>
-  /* ===========================
-     BRAND VARIABLES
-  =========================== */
-  :root {
-    --menta:      #A9DFBF;      /* mint green */
-    --menta-dark: #7FAF9B;
-    --coral:      #F08080;      /* coral */
-    --naranja:    #FF8C42;      /* sunset orange */
-    --crema:      #FFF8E7;      /* cream */
-    --crema-dark: #F2EAD6;
-    --madera:     #3B2F2F;      /* dark wood tones */
-    --madera-clara:#5C4033;
-    
-    --texto:      #3B2F2F;
-    --texto-muted:#5C4033;
-    --amarillo:   #FAD02C;
-    --max-w:      900px;
-  }
-
-  /* ===========================
-     RESET & BASE
-  =========================== */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 18px;
-  }
-
-  body {
-    font-family: 'Lora', Georgia, serif;
-    background: var(--crema);
-    color: var(--texto);
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-    position: relative;
-  }
-
-  /* Grain texture — analog paper feel */
-  body::before {
-    content: "";
+<style is:global>
+  /* ---- Navigation ---- */
+  .nav {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.035;
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  ul, ol {
-    list-style: none;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* ===========================
-     LAYOUT HELPERS
-  =========================== */
-  .container {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 0 1.25rem;
-  }
-
-  .prose-center {
-    max-width: 660px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  .section {
-    padding: 6rem 0;
-  }
-
-  .section-crema    { background: var(--crema); }
-  .section-menta    { background: var(--menta); color: var(--madera); }
-  .section-menta .section-title--light { color: var(--madera); }
-  .section-menta .section-lead--light { color: var(--texto-muted); }
-  .section-menta-dark { background: var(--menta-dark); color: var(--crema); }
-  .section-naranja  { background: var(--naranja); color: var(--madera); }
-  .section-naranja .section-title--light { color: var(--crema); }
-  .section-madera   { background: var(--madera); color: var(--crema); }
-  .section-madera .section-title--light { color: var(--crema); }
-  .section-coral    { background: var(--coral); color: var(--crema); }
-  .section-historia { background: var(--crema-dark); }
-  .section-manifesto { background: var(--menta-dark); color: var(--crema); }
-
-  /* ===========================
-     TYPOGRAPHY — headings use Playfair Display
-  =========================== */
-  h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .section-title {
-    font-size: clamp(1.8rem, 4.5vw, 2.75rem);
-    margin-bottom: 1.25rem;
-    color: var(--madera);
-  }
-
-  .section-title--light {
-    color: var(--amarillo);
-  }
-
-  .section-lead {
-    font-size: 1.05rem;
-    color: var(--texto-muted);
-    max-width: 600px;
-    margin-bottom: 3rem;
-    line-height: 1.8;
-  }
-
-  .section-lead--light {
-    color: rgba(243, 233, 215, 0.8);
-  }
-
-  .menu-intro {
-    font-style: italic;
-    font-size: 1rem;
-  }
-
-  /* ===========================
-     NAVIGATION
-  =========================== */
-  .site-nav {
-    position: sticky;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
-    background: var(--crema);
-    border-bottom: 1px solid var(--crema-dark);
-    box-shadow: 0 2px 16px rgba(44, 26, 14, 0.07);
+    height: var(--nav-h);
+    background-color: rgba(243, 231, 211, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(46, 36, 31, 0.07);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .nav-inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 0.85rem 1.25rem;
+  .nav.scrolled {
+    background-color: rgba(243, 231, 211, 0.97);
+    box-shadow: 0 2px 20px rgba(46, 36, 31, 0.09);
+  }
+
+  .nav__inner {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
   }
 
-  .nav-brand {
-    font-family: 'Pacifico', cursive;
-    font-size: 0.95rem;
-    color: var(--naranja);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .site-nav nav {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .site-nav nav a {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--texto-muted);
-    transition: color 0.2s;
-  }
-
-  .site-nav nav a:hover {
-    color: var(--coral);
-  }
-
-  @media (max-width: 560px) {
-    .site-nav nav {
-      display: none;
-    }
-  }
-
-  /* ===========================
-     HERO
-  =========================== */
-  #hero {
-    background: var(--menta-dark);
-    color: var(--crema);
-    min-height: 92vh;
+  .nav__brand {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    padding: 5rem 1.25rem 7rem;
-    overflow: hidden;
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-  }
-
-  .hero-lugar {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--menta);
-    margin-bottom: 1.25rem;
-    font-weight: 700;
-  }
-
-  .hero-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2.8rem, 9vw, 5.5rem);
-    color: var(--amarillo);
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    font-style: italic;
-    line-height: 1.1;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.2);
-  }
-
-  .hero-sub1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    color: var(--crema);
-    opacity: 0.95;
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-
-  .hero-sub2 {
-    font-family: 'Lora', Georgia, serif;
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
-    color: rgba(243, 233, 215, 0.78);
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-
-  .hero-helper {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 0.9rem;
-    font-style: italic;
-    color: rgba(243, 233, 215, 0.55);
-    line-height: 1.8;
-    max-width: 360px;
-    margin: 0 auto;
-  }
-
-  .hero-deco {
-    position: absolute;
-    bottom: 2.5rem;
-    right: 2.5rem;
-    font-size: 5rem;
-    opacity: 0.1;
-    transform: rotate(-15deg);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  @media (min-width: 768px) {
-    .hero-deco {
-      font-size: 9rem;
-      bottom: 3.5rem;
-      right: 5rem;
-    }
-  }
-
-  /* ===========================
-     BUTTONS
-  =========================== */
-  .btn {
-    display: inline-block;
-    padding: 0.9rem 2rem;
-    border-radius: 2px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-    transition: opacity 0.2s, transform 0.15s;
-    cursor: pointer;
-    text-align: center;
-  }
-
-  .btn:hover {
-    opacity: 0.88;
-    transform: translateY(-2px);
-  }
-
-  /* Primary = coral, used for main WA CTA */
-  .btn-primary {
-    background: var(--naranja);
-    color: #fff;
-  }
-
-  /* Secondary = outlined crema */
-  .btn-secondary {
-    background: transparent;
-    color: var(--crema);
-    border: 1.5px solid rgba(243, 233, 215, 0.45);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--crema);
-    opacity: 1;
-  }
-
-  /* Light WA button (on colored backgrounds) */
-  .btn-wa-light {
-    background: var(--crema);
-    color: var(--madera);
-    font-weight: 700;
-  }
-
-  .btn-wa-light:hover {
-    background: #fff;
-    opacity: 1;
-  }
-
-  .btn-ig {
-    background: transparent;
-    color: var(--crema);
-    border: 1.5px solid rgba(243, 233, 215, 0.4);
-  }
-
-  .btn-ig:hover {
-    border-color: var(--crema);
-    opacity: 1;
-  }
-
-  /* ===========================
-     MANIFESTO BLOCK
-  =========================== */
-  .manifesto-quote {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--amarillo);
-    line-height: 1.5;
-    border: none;
-    padding: 0;
-    max-width: 600px;
-    margin: 0 auto 1.25rem;
-  }
-
-  .manifesto-attr {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--menta);
-    font-weight: 700;
-  }
-
-  /* ===========================
-     LA CASA
-  =========================== */
-  .tagline {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(1.3rem, 3.5vw, 1.75rem);
-    color: var(--coral);
-    line-height: 1.5;
-    font-weight: 400;
-  }
-
-  .intro-text {
-    font-size: 1.1rem;
-    color: var(--texto);
-    max-width: 580px;
-    margin: 0 auto 1rem;
-    line-height: 1.8;
-  }
-
-  /* ===========================
-     DRINKS GRID
-  =========================== */
-  .drinks-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .drinks-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .drink-card {
-    background: rgba(243, 233, 215, 0.07);
-    border: 1px solid rgba(243, 233, 215, 0.15);
-    border-left: 3px solid var(--amarillo);
-    padding: 1.25rem 1rem;
-    border-radius: 0 3px 3px 0;
-  }
-
-  .drink-name {
-    display: block;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: inherit;
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-  }
-
-  .drink-tag {
-    display: block;
-    font-family: 'Lora', Georgia, serif;
-    font-style: italic;
-    color: var(--amarillo);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .drink-desc {
-    font-size: 0.85rem;
-    color: inherit;
-    opacity: 0.8;
-    line-height: 1.6;
-    margin: 0;
-    font-family: 'Lato', sans-serif;
-  }
-
-  /* ===========================
-     COCINA — CARD GRID (mobile-first)
-  =========================== */
-  .dishes-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 480px) {
-    .dishes-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .dishes-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .dish-item {
-    background: #fff;
-    border: 1px solid var(--crema-dark);
-    border-radius: 6px;
-    padding: 1.5rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    box-shadow: 0 1px 4px rgba(59, 47, 47, 0.04);
-    transition: box-shadow 0.2s, transform 0.15s;
-  }
-
-  .dish-item:hover {
-    box-shadow: 0 4px 16px rgba(59, 47, 47, 0.1);
-    transform: translateY(-2px);
-  }
-
-  .dish-name {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
-    color: var(--madera);
-    font-size: 1.05rem;
-    line-height: 1.3;
-  }
-
-  .dish-desc {
-    font-size: 0.875rem;
-    color: var(--texto-muted);
-    line-height: 1.6;
-    font-family: 'Lato', sans-serif;
-  }
-
-  .carta-nota {
-    margin-top: 2.5rem;
-    font-size: 0.9rem;
-    color: var(--texto-muted);
-    text-align: center;
-    font-style: italic;
-  }
-
-  /* ===========================
-     HISTORIA
-  =========================== */
-  .historia-text {
-    text-align: left;
-    max-width: 600px;
-    margin: 2.5rem auto 3rem;
-  }
-
-  .historia-text p {
-    margin-bottom: 1.5rem;
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: inherit;
-  }
-
-  .historia-antonia {
-    font-style: italic;
-    color: var(--texto-muted) !important;
-    border-left: 3px solid var(--menta);
-    padding-left: 1.25rem;
-    margin-top: 2rem !important;
-  }
-
-  .filosofia-quote {
-    font-family: 'Pacifico', cursive;
-    font-size: clamp(1.2rem, 3.5vw, 1.75rem);
-    font-weight: 400;
-    color: var(--coral);
-    line-height: 1.5;
-    border: none;
-    padding: 1.75rem 2rem;
-    background: rgba(255, 255, 255, 0.45);
-    border-radius: 3px;
-    display: inline-block;
-    max-width: 560px;
-  }
-
-  /* ===========================
-     APERTURA
-  =========================== */
-  .apertura-text {
-    font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 1rem;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.8;
-  }
-
-  #apertura .btn {
-    margin-top: 1.75rem;
-  }
-
-  /* ===========================
-     CONTACTO
-  =========================== */
-  .contacto-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 3rem;
-  }
-
-  @media (min-width: 560px) {
-    .contacto-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .contacto-label {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--menta);
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .contacto-link {
-    font-size: 1rem;
-    line-height: 1.7;
-    display: block;
-  }
-
-  .contacto-link--light {
-    color: var(--crema);
-    opacity: 0.82;
-    transition: opacity 0.2s;
-  }
-
-  .contacto-link--light:hover {
-    opacity: 1;
-  }
-
-  .contacto-sub {
-    font-size: 0.875rem;
-    opacity: 0.7;
-    line-height: 1.5;
-    display: block;
-  }
-
-  .contacto-ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  /* ===========================
-     FOOTER
-  =========================== */
-  .site-footer {
-    background: var(--texto);
-    color: rgba(243, 233, 215, 0.45);
-    padding: 1.75rem 0;
-    font-size: 0.85rem;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .footer-brand {
-    font-family: 'Pacifico', cursive;
-    color: rgba(243, 233, 215, 0.7);
-    font-size: 0.875rem;
-  }
-
-  .footer-sep {
-    color: rgba(243, 233, 215, 0.2);
-  }
-
-  .footer-link {
-    color: rgba(243, 233, 215, 0.45);
-    transition: color 0.2s;
-  }
-
-  .footer-link:hover {
-    color: var(--menta);
-  }
-
-  .footer-copy {
-    font-style: italic;
-  }
-
-  /* ===========================
-     FLOATING WHATSAPP — always visible
-  =========================== */
-  .wa-float {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 200;
-    background: #25D366;
-    color: #fff;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s, border-radius 0.2s, width 0.2s, padding 0.2s;
-    overflow: hidden;
-    white-space: nowrap;
+    line-height: 1;
+    gap: 1px;
     text-decoration: none;
   }
 
-  .wa-label {
-    display: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.875rem;
+  .brand__name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-left: 0.5rem;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    line-height: 1;
   }
 
-  .wa-float:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+  .brand__tag {
+    font-family: var(--font-ui);
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rum);
+    opacity: 0.8;
   }
 
-  /* Pill shape on desktop */
+  .nav__links {
+    display: none;
+    align-items: center;
+    gap: var(--sp-8);
+  }
+
   @media (min-width: 768px) {
-    .wa-float {
-      width: auto;
-      height: auto;
-      border-radius: 100px;
-      padding: 0.75rem 1.25rem;
-      gap: 0.5rem;
-    }
-
-    .wa-label {
-      display: inline;
-    }
+    .nav__links { display: flex; }
   }
 
-  /* ===========================
-     ACCESSIBILITY
-  =========================== */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border-width: 0;
+  .nav__links a {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    letter-spacing: 0.03em;
+    color: var(--color-ink);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
   }
 
-  :focus-visible {
-    outline: 3px solid var(--naranja);
-    outline-offset: 3px;
+  .nav__links a:hover { opacity: 1; }
+
+  .nav__cta-link {
+    background-color: var(--color-caribbean) !important;
+    color: var(--color-paper) !important;
+    opacity: 1 !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500 !important;
+    transition: background-color 0.2s ease !important;
+  }
+
+  .nav__cta-link:hover {
+    background-color: var(--color-caribbean-light) !important;
+  }
+
+  .nav__wa-mobile {
+    display: flex;
+    align-items: center;
+    color: var(--color-caribbean);
+  }
+
+  @media (min-width: 768px) {
+    .nav__wa-mobile { display: none; }
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    padding-block: var(--sp-12);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--sp-4);
+  }
+
+  .footer__brand {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-style: italic;
+  }
+
+  .footer__address {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(243, 231, 211, 0.45);
+  }
+
+  .footer__links {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: rgba(243, 231, 211, 0.55);
+  }
+
+  .footer__links a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer__links a:hover { color: var(--color-sun); }
+
+  .footer__copy {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: rgba(243, 231, 211, 0.25);
+    margin-top: var(--sp-4);
+  }
+
+  /* ---- Floating WhatsApp ---- */
+  .float-wa {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.25rem;
+    z-index: 90;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: 0.8rem 1.1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease;
+  }
+
+  .float-wa:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.4);
+  }
+
+  .float-wa__label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .float-wa__label { display: block; }
   }
 </style>
+
+<script>
+  // ---- Scroll-reveal via IntersectionObserver ----
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.08,
+      rootMargin: '0px 0px -48px 0px',
+    }
+  );
+
+  document
+    .querySelectorAll('.reveal, .reveal-left, .reveal-right')
+    .forEach((el) => revealObserver.observe(el));
+
+  // ---- Nav scroll state ----
+  const nav = document.getElementById('nav');
+
+  const updateNav = () => {
+    if (!nav) return;
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  };
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+</script>

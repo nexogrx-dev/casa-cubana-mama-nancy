@@ -1,0 +1,332 @@
+---
+interface CoctelItem {
+  name: string;
+  tagline: string;
+  desc: string;
+  color: 'red' | 'yellow' | 'blue';
+}
+
+interface Props {
+  intro: string;
+  items: CoctelItem[];
+}
+
+const { intro, items } = Astro.props;
+
+// Map research color names to design tokens
+const colorMap: Record<string, string> = {
+  red:    'var(--color-rum)',
+  yellow: 'var(--color-sun)',
+  blue:   'var(--color-caribbean)',
+};
+---
+
+<section id="tragos" class="tragos section-pad">
+
+  <!-- Full-width top bar -->
+  <div class="tragos__bar" aria-hidden="true">
+    <span>✦</span>
+    <span>Los Tragos</span>
+    <span>✦</span>
+    <span>Pa' alegrarte la vida</span>
+    <span>✦</span>
+    <span>Los Tragos</span>
+    <span>✦</span>
+    <span>Pa' alegrarte la vida</span>
+    <span>✦</span>
+  </div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="tragos__header reveal">
+      <p class="section-label" style="color: var(--color-caribbean);">
+        <span class="section-label__line"></span>
+        Los Tragos · 04
+      </p>
+
+      <h2 class="tragos__title">
+        <span class="tt-main">Barra</span>
+        <span class="tt-sub">{intro}</span>
+      </h2>
+    </div>
+
+    <!-- Visual placeholder: bar shelf -->
+    <div class="shelf reveal d2" aria-hidden="true">
+      <div class="shelf__surface"></div>
+      <div class="shelf__bottles">
+        {['rum', 'sun', 'caribbean', 'rum', 'palm', 'sun', 'caribbean', 'rum'].map((col, i) => (
+          <div class="bottle" style={`--col: var(--color-${col}); --h: ${0.65 + (i % 3) * 0.12}; animation-delay: ${i * 0.15}s`}>
+            <div class="bottle__body">
+              <div class="bottle__label"></div>
+            </div>
+            <div class="bottle__neck"></div>
+            <div class="bottle__cap"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Cocktail grid -->
+    <div class="cocktails">
+      {items.map((item, i) => (
+        <article class={`coctel reveal d${Math.min(i + 1, 7)}`} style={`--accent: ${colorMap[item.color] ?? 'var(--color-rum)'}`}>
+          <div class="coctel__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+          <div class="coctel__content">
+            <h3 class="coctel__name">{item.name}</h3>
+            <p class="coctel__tagline">{item.tagline}</p>
+            <p class="coctel__desc">{item.desc}</p>
+          </div>
+          <div class="coctel__accent" aria-hidden="true"></div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Bottom ornament bar -->
+  <div class="tragos__bar tragos__bar--bottom" aria-hidden="true">
+    <span>✦</span>
+    <span>Ron Cubano</span>
+    <span>✦</span>
+    <span>Mojito</span>
+    <span>✦</span>
+    <span>Piña Colada</span>
+    <span>✦</span>
+    <span>Cuba Libre</span>
+    <span>✦</span>
+  </div>
+
+</section>
+
+<style>
+.tragos {
+  background-color: var(--color-paper-warm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle diagonal grain */
+.tragos::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(46, 36, 31, 0.015) 8px,
+    rgba(46, 36, 31, 0.015) 9px
+  );
+  pointer-events: none;
+}
+
+/* ---- Ticker bar ---- */
+.tragos__bar {
+  background-color: var(--color-ink);
+  color: var(--color-sun);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-block: 0.4rem;
+  display: flex;
+  gap: var(--sp-6);
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: var(--sp-16);
+}
+
+.tragos__bar--bottom {
+  margin-bottom: 0;
+  margin-top: var(--sp-16);
+}
+
+.tragos__bar span {
+  flex-shrink: 0;
+}
+
+/* ---- Header ---- */
+.tragos__header {
+  margin-bottom: var(--sp-12);
+}
+
+.tragos__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.tt-main {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 10vw, var(--text-6xl));
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.tt-sub {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-xl), 4vw, var(--text-3xl));
+  font-style: italic;
+  color: var(--color-caribbean);
+  font-weight: 400;
+}
+
+/* ---- Shelf illustration ---- */
+.shelf {
+  background-color: var(--color-ink);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-6) var(--sp-8) var(--sp-4);
+  margin-bottom: var(--sp-16);
+  overflow: hidden;
+  position: relative;
+}
+
+.shelf__surface {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  background-color: rgba(217, 164, 65, 0.3);
+}
+
+.shelf__bottles {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: var(--sp-3);
+  height: 5rem;
+}
+
+/* Individual bottle */
+.bottle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 2.5rem;
+  animation: gentleSway 3s ease-in-out infinite alternate;
+  --sway-angle: 0deg;
+}
+
+.bottle__cap {
+  width: 30%;
+  height: 0.35rem;
+  background-color: rgba(243, 231, 211, 0.5);
+  border-radius: 1px 1px 0 0;
+}
+
+.bottle__neck {
+  width: 30%;
+  height: 0.6rem;
+  background-color: var(--col);
+  opacity: 0.7;
+}
+
+.bottle__body {
+  width: 100%;
+  flex: 1;
+  background-color: var(--col);
+  opacity: calc(0.7 * var(--h, 1));
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  height: calc(100% * var(--h, 0.8));
+}
+
+.bottle__label {
+  width: 65%;
+  height: 40%;
+  background-color: rgba(243, 231, 211, 0.2);
+  border-radius: 1px;
+}
+
+/* ---- Cocktail cards ---- */
+.cocktails {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-1);
+}
+
+@media (min-width: 640px) {
+  .cocktails {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cocktails {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.coctel {
+  position: relative;
+  padding: var(--sp-8) var(--sp-6);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-paper-dark);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.coctel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(46, 36, 31, 0.1);
+}
+
+/* Accent bar on left edge */
+.coctel__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--accent);
+}
+
+/* Large number */
+.coctel__num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.06em;
+  padding-left: var(--sp-4);
+}
+
+.coctel__content {
+  padding-left: var(--sp-4);
+}
+
+.coctel__name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.15;
+  margin-bottom: var(--sp-1);
+}
+
+.coctel__tagline {
+  font-family: var(--font-script);
+  font-size: var(--text-xl);
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: var(--sp-3);
+}
+
+.coctel__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  line-height: 1.75;
+  font-style: italic;
+}
+</style>

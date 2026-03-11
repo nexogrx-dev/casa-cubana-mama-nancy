@@ -1,0 +1,289 @@
+---
+const waLink = `https://wa.me/34634080799?text=${encodeURIComponent("Hola Mamá Nancy, ¿está la casa abierta hoy?")}`;
+const mapsLink = "https://maps.google.com/?q=37.1786553,-3.6031193";
+---
+
+<section id="reserva" class="reserva section-pad">
+  <div class="container">
+
+    <div class="reserva__inner reveal">
+
+      <!-- Top ornament -->
+      <div class="reserva__ornament" aria-hidden="true">
+        <div class="ornament-row" style="color: var(--color-rum);">
+          <span class="ornament-row__line"></span>
+          <span class="ornament-row__glyph" style="font-size: 0.8rem;">✦</span>
+          <span class="ornament-row__line"></span>
+        </div>
+      </div>
+
+      <!-- Section label -->
+      <p class="section-label" style="color: var(--color-rum); justify-content: center;">
+        <span class="section-label__line"></span>
+        ¿Vienes? · 06
+        <span class="section-label__line"></span>
+      </p>
+
+      <!-- Big heading -->
+      <h2 class="reserva__title">
+        <em>Escríbeme</em><br>
+        antes de venir
+      </h2>
+
+      <p class="reserva__note">
+        No siempre abro. Cada día es diferente — como mi cocina.
+        Escríbeme por WhatsApp y te digo si está la casa abierta.
+      </p>
+
+      <!-- Primary CTA -->
+      <a href={waLink} class="btn reserva__cta" target="_blank" rel="noopener noreferrer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Escríbeme por WhatsApp
+      </a>
+
+      <!-- Contact details -->
+      <div class="reserva__details reveal d2">
+
+        <div class="detail">
+          <span class="detail__label">Dirección</span>
+          <a href={mapsLink} class="detail__value detail__value--link" target="_blank" rel="noopener">
+            Calle Duquesa 31<br>
+            18001 Granada, España
+          </a>
+        </div>
+
+        <div class="detail__sep" aria-hidden="true">✦</div>
+
+        <div class="detail">
+          <span class="detail__label">Teléfono</span>
+          <a href="tel:+34634080799" class="detail__value detail__value--link">
+            +34 634 080 799
+          </a>
+        </div>
+
+        <div class="detail__sep" aria-hidden="true">✦</div>
+
+        <div class="detail">
+          <span class="detail__label">Instagram</span>
+          <a href="https://instagram.com/cafebarmamanancy" class="detail__value detail__value--link" target="_blank" rel="noopener">
+            @cafebarmamanancy
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Decorative address card -->
+      <div class="address-card reveal d3" aria-hidden="true">
+        <div class="ac__inner">
+          <span class="ac__from">De: La Habana, Cuba</span>
+          <span class="ac__arrow" aria-hidden="true">→</span>
+          <span class="ac__to">Para: Granada, España</span>
+          <div class="ac__stamp">
+            <span>✦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom ornament -->
+      <div class="reserva__ornament" aria-hidden="true">
+        <div class="ornament-row" style="color: var(--color-rum);">
+          <span class="ornament-row__line"></span>
+          <span class="ornament-row__glyph" style="font-size: 0.8rem;">✦</span>
+          <span class="ornament-row__line"></span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.reserva {
+  background-color: var(--color-paper);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Diagonal stripes in background */
+.reserva::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 40px,
+    rgba(200, 76, 54, 0.03) 40px,
+    rgba(200, 76, 54, 0.03) 41px
+  );
+  pointer-events: none;
+}
+
+/* ---- Inner frame ---- */
+.reserva__inner {
+  max-width: 700px;
+  margin-inline: auto;
+  text-align: center;
+  position: relative;
+}
+
+.reserva__ornament {
+  margin-block: var(--sp-8);
+}
+
+/* ---- Title ---- */
+.reserva__title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 9vw, var(--text-6xl));
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-bottom: var(--sp-8);
+}
+
+.reserva__title em {
+  font-style: italic;
+  color: var(--color-rum);
+}
+
+/* ---- Note text ---- */
+.reserva__note {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  opacity: 0.75;
+  line-height: 1.8;
+  max-width: 50ch;
+  margin-inline: auto;
+  margin-bottom: var(--sp-10);
+}
+
+/* ---- CTA button ---- */
+.reserva__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background-color: var(--color-caribbean);
+  color: var(--color-paper);
+  padding: 1rem 2.25rem;
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--sp-16);
+}
+
+.reserva__cta:hover {
+  background-color: var(--color-caribbean-light);
+  box-shadow: 0 10px 36px rgba(13, 92, 99, 0.35);
+}
+
+/* ---- Contact details ---- */
+.reserva__details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-12);
+}
+
+@media (min-width: 640px) {
+  .reserva__details {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--sp-8);
+  }
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.detail__label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.detail__value {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.detail__value--link {
+  transition: color var(--dur-base) ease;
+}
+
+.detail__value--link:hover {
+  color: var(--color-rum);
+}
+
+.detail__sep {
+  color: var(--color-sun);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .detail__sep { display: block; }
+}
+
+/* ---- Address card ---- */
+.address-card {
+  margin-bottom: var(--sp-12);
+}
+
+.ac__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  border: 1px solid var(--color-rum);
+  padding: var(--sp-3) var(--sp-6);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  position: relative;
+}
+
+.ac__from,
+.ac__to {
+  font-weight: 500;
+}
+
+.ac__arrow {
+  color: var(--color-rum);
+  font-size: 1rem;
+}
+
+.ac__stamp {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  background-color: var(--color-rum);
+  color: var(--color-paper);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+}
+</style>
