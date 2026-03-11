@@ -200,3 +200,10 @@ dist
 
 ### Astro ###
 .astro/
+
+### Image curation (generated) ###
+photos/
+photos-manifest.json
+04_media/raw/
+04_media/procesadas/
+04_media/web/

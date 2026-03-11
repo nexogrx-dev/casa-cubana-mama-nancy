@@ -1,0 +1,136 @@
+/* ============================================================
+   ANIMATIONS
+   Soft editorial motion — no bounces, no tech-startup flashes
+   ============================================================ */
+
+/* ---- Keyframes ---- */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes gentleSway {
+  0%, 100% { transform: rotate(var(--sway-angle, -2deg)) translateY(0); }
+  50%       { transform: rotate(var(--sway-angle, -2deg)) translateY(-6px); }
+}
+
+@keyframes stampIn {
+  from { opacity: 0; transform: scale(0.85) rotate(-4deg); }
+  to   { opacity: 1; transform: scale(1) rotate(var(--stamp-rotate, 0deg)); }
+}
+
+/* ---- Scroll-reveal system ---- */
+/* JS adds .is-visible when element enters viewport */
+
+.reveal,
+.reveal-left,
+.reveal-right {
+  will-change: opacity, transform;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ---- Stagger delays ---- */
+.d1 { transition-delay:  80ms; }
+.d2 { transition-delay: 180ms; }
+.d3 { transition-delay: 280ms; }
+.d4 { transition-delay: 380ms; }
+.d5 { transition-delay: 480ms; }
+.d6 { transition-delay: 580ms; }
+.d7 { transition-delay: 680ms; }
+
+/* ---- Hero: play on load (not scroll) ---- */
+.hero-anim {
+  animation: fadeUp 0.85s var(--ease-out) both;
+}
+.hero-anim.d1 { animation-delay: 0.05s; }
+.hero-anim.d2 { animation-delay: 0.20s; }
+.hero-anim.d3 { animation-delay: 0.38s; }
+.hero-anim.d4 { animation-delay: 0.56s; }
+.hero-anim.d5 { animation-delay: 0.74s; }
+
+/* ---- Button micro-interactions ---- */
+.btn {
+  transition:
+    background-color var(--dur-base) ease,
+    color var(--dur-base) ease,
+    transform var(--dur-fast) ease,
+    box-shadow var(--dur-base) ease;
+  cursor: pointer;
+}
+
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .hero-anim {
+    animation: fadeIn 0.4s ease both !important;
+  }
+}

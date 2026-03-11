@@ -1,0 +1,91 @@
+/* ============================================================
+   CASA CUBANA MAMÁ NANCY
+   Design Tokens — Cuban Vintage Travel Poster Aesthetic
+   ============================================================ */
+
+:root {
+  /* ---- Color Palette ---- */
+  --color-paper:      #F3E7D3;
+  --color-caribbean:  #0D5C63;
+  --color-rum:        #C84C36;
+  --color-sun:        #D9A441;
+  --color-palm:       #5E8B63;
+  --color-ink:        #2E241F;
+
+  /* Derived tones */
+  --color-paper-warm:        #EDD9B6;
+  --color-paper-dark:        #E0CCA4;
+  --color-caribbean-deep:    #094950;
+  --color-caribbean-light:   #116B73;
+  --color-rum-dark:          #A33B27;
+  --color-rum-muted:         rgba(200, 76, 54, 0.15);
+  --color-sun-pale:          #E8C06A;
+  --color-palm-dark:         #4A7050;
+  --color-ink-muted:         rgba(46, 36, 31, 0.55);
+  --color-ink-faint:         rgba(46, 36, 31, 0.10);
+  --color-paper-overlay:     rgba(243, 231, 211, 0.92);
+
+  /* ---- Typography ---- */
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:    'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui:      'Inter', system-ui, -apple-system, sans-serif;
+  --font-script:  'Caveat', cursive;
+
+  /* ---- Type Scale (fluid, mobile-first base) ---- */
+  --text-xs:   0.6875rem;   /* 11px */
+  --text-sm:   0.8125rem;   /* 13px */
+  --text-base: 1rem;        /* 16px */
+  --text-lg:   1.125rem;    /* 18px */
+  --text-xl:   1.375rem;    /* 22px */
+  --text-2xl:  1.75rem;     /* 28px */
+  --text-3xl:  2.25rem;     /* 36px */
+  --text-4xl:  3rem;        /* 48px */
+  --text-5xl:  4.25rem;     /* 68px */
+  --text-6xl:  6rem;        /* 96px */
+
+  /* ---- Spacing scale ---- */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* ---- Layout ---- */
+  --max-w:        1200px;
+  --max-w-prose:  680px;
+  --container-px: 1.25rem;
+  --nav-h:        4rem;
+
+  /* ---- Borders / Radius ---- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ---- Transitions ---- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout:  cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    150ms;
+  --dur-base:    260ms;
+  --dur-slow:    480ms;
+  --dur-reveal:  680ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-px: 2rem;
+    --nav-h:        4.5rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --container-px: 3rem;
+  }
+}

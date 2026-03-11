@@ -20,7 +20,7 @@
 		"typescript": "5.9.3"
 	},
 	"devDependencies": {
-		"wrangler": "4.56.0"
+		"wrangler": "^4.71.0"
 	},
 	"private": true,
 	"scripts": {
@@ -30,7 +30,9 @@
 		"check": "astro build && tsc && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
 		"dev": "astro dev",
-		"preview": "astro build && wrangler dev"
+		"preview": "astro build && wrangler dev",
+		"curate:scan": "python3 scripts/curate-photos.py scan",
+		"curate:build": "python3 scripts/curate-photos.py build"
 	},
 	"type": "module"
 }

@@ -1,0 +1,336 @@
+---
+interface DishItem {
+  name: string;
+  desc: string;
+}
+
+interface Props {
+  intro: string;
+  items: DishItem[];
+}
+
+const { intro, items } = Astro.props;
+---
+
+<section id="comida" class="comida section-pad">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="comida__header reveal">
+      <p class="section-label" style="color: var(--color-sun);">
+        <span class="section-label__line"></span>
+        La Mesa · 03
+      </p>
+
+      <h2 class="comida__title">
+        La cocina<br>
+        <em>de ese día</em>
+      </h2>
+
+      <p class="comida__intro">{intro}</p>
+    </div>
+
+    <!-- Two-column layout: menu list + card placeholder -->
+    <div class="comida__body">
+
+      <!-- Dish list (vintage menu style) -->
+      <ol class="menu" role="list">
+        {items.map((dish, i) => (
+          <li class={`menu__item reveal d${Math.min(i + 1, 7)}`}>
+            <span class="menu__num" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="menu__info">
+              <h3 class="menu__name">{dish.name}</h3>
+              <p class="menu__desc">{dish.desc}</p>
+            </div>
+            <span class="menu__dots" aria-hidden="true"></span>
+          </li>
+        ))}
+      </ol>
+
+      <!-- Editorial menu card placeholder -->
+      <aside class="comida__card reveal-right d2" aria-hidden="true">
+        <div class="menu-card">
+          <div class="menu-card__top">
+            <span class="mc-label">Menú del día</span>
+            <span class="mc-date">Hoy</span>
+          </div>
+
+          <!-- Decorative ruled lines -->
+          <div class="mc-lines">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div class="mc-line" style={`opacity: ${0.6 - i * 0.06};`}></div>
+            ))}
+          </div>
+
+          <!-- Sun motif -->
+          <svg class="mc-sun" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="16" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            {Array.from({ length: 12 }).map((_, i) => {
+              const angle = (i * 30 * Math.PI) / 180;
+              const x1 = 40 + Math.cos(angle) * 22;
+              const y1 = 40 + Math.sin(angle) * 22;
+              const x2 = 40 + Math.cos(angle) * 28;
+              const y2 = 40 + Math.sin(angle) * 28;
+              return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>;
+            })}
+          </svg>
+
+          <div class="mc-bottom">
+            <span class="mc-brand">Casa Cubana</span>
+            <span class="mc-address">Calle Duquesa 31</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footnote -->
+    <p class="comida__note reveal">
+      Estos son ejemplos de lo que preparo. Cada día la mesa es distinta —
+      según lo que haya y con quién venga.
+    </p>
+
+  </div>
+</section>
+
+<style>
+.comida {
+  background-color: var(--color-rum);
+  color: var(--color-paper);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Large decorative number */
+.comida::after {
+  content: '03';
+  position: absolute;
+  bottom: -0.1em;
+  left: -0.05em;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 25vw, 18rem);
+  font-weight: 700;
+  color: rgba(243, 231, 211, 0.05);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ---- Header ---- */
+.comida__header {
+  margin-bottom: var(--sp-16);
+}
+
+.comida__title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 9vw, var(--text-6xl));
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-paper);
+  margin-bottom: var(--sp-6);
+}
+
+.comida__title em {
+  font-style: italic;
+  color: var(--color-sun);
+}
+
+.comida__intro {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: rgba(243, 231, 211, 0.8);
+  max-width: 50ch;
+  line-height: 1.7;
+}
+
+/* ---- Body grid ---- */
+.comida__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-16);
+  margin-bottom: var(--sp-12);
+}
+
+@media (min-width: 768px) {
+  .comida__body {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--sp-20);
+  }
+}
+
+/* ---- Menu list ---- */
+.menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid rgba(243, 231, 211, 0.18);
+}
+
+.menu__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  border-bottom: 1px solid rgba(243, 231, 211, 0.12);
+  position: relative;
+}
+
+.menu__item:hover .menu__name {
+  color: var(--color-sun);
+}
+
+.menu__num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: rgba(243, 231, 211, 0.35);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  width: 2rem;
+  text-align: right;
+}
+
+.menu__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-paper);
+  line-height: 1.2;
+  margin-bottom: var(--sp-1);
+  transition: color var(--dur-base) ease;
+}
+
+.menu__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(243, 231, 211, 0.6);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.menu__dots {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  border-bottom: 2px dotted rgba(243, 231, 211, 0.2);
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+/* ---- Menu card placeholder ---- */
+.comida__card {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .comida__card {
+    display: block;
+  }
+}
+
+.menu-card {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  padding: var(--sp-10) var(--sp-8);
+  aspect-ratio: 3 / 4;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow:
+    4px 4px 0 var(--color-rum-dark),
+    8px 8px 0 var(--color-sun);
+}
+
+.menu-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--color-ink-faint);
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+.mc-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-style: italic;
+  color: var(--color-ink);
+}
+
+.mc-date {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.mc-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.mc-line {
+  height: 1px;
+  background-color: var(--color-ink);
+  border-radius: 1px;
+}
+
+.mc-sun {
+  width: 4rem;
+  height: 4rem;
+  margin: var(--sp-6) auto;
+  color: var(--color-sun);
+}
+
+.mc-bottom {
+  border-top: 2px solid var(--color-ink-faint);
+  padding-top: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mc-brand {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.04em;
+}
+
+.mc-address {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+/* ---- Footnote ---- */
+.comida__note {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: rgba(243, 231, 211, 0.55);
+  text-align: center;
+  padding-top: var(--sp-8);
+  border-top: 1px solid rgba(243, 231, 211, 0.1);
+  max-width: 60ch;
+  margin-inline: auto;
+  line-height: 1.8;
+}
+</style>

@@ -1,0 +1,174 @@
+---
+interface Props {
+  quote: string;
+}
+
+const { quote } = Astro.props;
+---
+
+<section id="manifesto" class="manifesto section-pad">
+  <div class="container">
+
+    <div class="manifesto__inner reveal">
+
+      <div class="manifesto__num" aria-hidden="true">01</div>
+
+      <blockquote class="manifesto__quote">
+        <p class="q-text">{quote}</p>
+        <footer class="q-attr">
+          <span class="q-dash" aria-hidden="true">—</span>
+          Mamá Nancy
+        </footer>
+      </blockquote>
+
+      <div class="manifesto__sub reveal d2">
+        <p>
+          Para mí, cocinar no es un trabajo. Es un acto de amor. Mi cocinaterapia:
+          cuidar el alma a través de mis guisos, el aroma del café y escucharte con calma.
+        </p>
+        <p>
+          Mi receta secreta no está en las especias, sino en el tiempo que te dedico.
+          Si tienes prisa, este no es tu sitio. Pero si tienes hambre de charla y de cariño,
+          aquí te espero.
+        </p>
+      </div>
+
+      <!-- Decorative palm leaf motif -->
+      <div class="manifesto__motif" aria-hidden="true">
+        <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 75 C55 55 50 35 48 15" stroke="rgba(243,231,211,0.4)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M48 20 C35 12 18 8 5 10 C22 12 38 18 47 24" fill="rgba(243,231,211,0.25)"/>
+          <path d="M50 18 C42 6 40 -5 42 -12" fill="rgba(243,231,211,0.2)" stroke="rgba(243,231,211,0.3)" stroke-width="1.5"/>
+          <path d="M52 22 C65 14 80 10 95 12 C78 14 62 20 53 26" fill="rgba(243,231,211,0.25)"/>
+          <path d="M48 28 C32 26 18 30 8 38 C24 33 40 30 48 32" fill="rgba(243,231,211,0.18)"/>
+          <path d="M54 26 C70 24 84 28 92 36 C78 31 62 30 54 34" fill="rgba(243,231,211,0.18)"/>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.manifesto {
+  background-color: var(--color-caribbean);
+  color: var(--color-paper);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture grain via pseudo */
+.manifesto::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 300px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.manifesto__inner {
+  position: relative;
+  border: 1px solid rgba(243, 231, 211, 0.18);
+  padding: var(--sp-12) var(--sp-8);
+  max-width: var(--max-w-prose);
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .manifesto__inner {
+    padding: var(--sp-16) var(--sp-16);
+  }
+}
+
+/* Corner accent lines */
+.manifesto__inner::before,
+.manifesto__inner::after {
+  content: '';
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.manifesto__inner::before {
+  top: -1px;
+  left: -1px;
+  border-top: 3px solid var(--color-sun);
+  border-left: 3px solid var(--color-sun);
+}
+
+.manifesto__inner::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 3px solid var(--color-sun);
+  border-right: 3px solid var(--color-sun);
+}
+
+/* Section number */
+.manifesto__num {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 20vw, 10rem);
+  font-weight: 700;
+  color: rgba(243, 231, 211, 0.06);
+  line-height: 1;
+  position: absolute;
+  top: -0.2em;
+  right: 0.1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Quote */
+.manifesto__quote {
+  margin-bottom: var(--sp-10);
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-paper);
+  margin-bottom: var(--sp-6);
+}
+
+.q-attr {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sun);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.q-dash {
+  opacity: 0.6;
+}
+
+/* Sub text */
+.manifesto__sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.85;
+  color: rgba(243, 231, 211, 0.75);
+  padding-top: var(--sp-8);
+  border-top: 1px solid rgba(243, 231, 211, 0.12);
+}
+
+/* Motif */
+.manifesto__motif {
+  position: absolute;
+  bottom: -1rem;
+  right: 1.5rem;
+  width: 7rem;
+  opacity: 0.4;
+  pointer-events: none;
+}
+</style>

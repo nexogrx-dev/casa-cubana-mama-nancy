@@ -1,0 +1,324 @@
+---
+interface Props {
+  highlight: string;
+}
+
+const { highlight } = Astro.props;
+---
+
+<section id="la-casa" class="casa section-pad">
+  <div class="container casa__grid">
+
+    <!-- ── LEFT: Content ── -->
+    <div class="casa__content reveal-left">
+
+      <p class="section-label" style="color: var(--color-rum);">
+        <span class="section-label__line"></span>
+        La Casa
+      </p>
+
+      <h2 class="casa__title">
+        No busco clientes.<br>
+        <em>Busco gente con<br>quien compartir.</em>
+      </h2>
+
+      <p class="casa__highlight">"{highlight}"</p>
+
+      <div class="casa__body">
+        <p>
+          Mi historia no empezó en un restaurante, sino en la ventana de mi propia casa
+          en La Habana. Durante años cociné para mis vecinos y amigos desde allí.
+          No era un negocio: era mi manera de estar con la gente.
+        </p>
+        <p>
+          Hoy, aquí en Granada, sigo haciendo lo mismo. Vivo justo al lado, pared con
+          pared con este local. Esta casa es la extensión de mi salón —
+          un sitio donde te recibo como si fueras de la familia.
+        </p>
+      </div>
+
+      <!-- Decorative stamp -->
+      <div class="casa__stamp" aria-hidden="true">
+        <div class="stamp__inner">
+          <span class="stamp__top">Casa</span>
+          <span class="stamp__year">Est. Habana</span>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M14 3 L14 25 M3 14 L25 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <circle cx="14" cy="14" r="3" fill="currentColor" opacity="0.4"/>
+          </svg>
+          <span class="stamp__bottom">Granada</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── RIGHT: Stacked frames placeholder ── -->
+    <div class="casa__visual reveal-right d2">
+      <div class="frames">
+
+        <!-- Frame 3 — back (caribbean) -->
+        <div class="frame frame--back" aria-hidden="true">
+          <div class="frame__inner">
+            <svg viewBox="0 0 100 60" fill="none" opacity="0.3">
+              <path d="M10 50 Q30 35 50 30 Q70 25 90 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M10 45 Q30 33 50 28 Q70 23 90 10" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Frame 2 — mid (rum) -->
+        <div class="frame frame--mid" aria-hidden="true">
+          <div class="frame__inner">
+            <div class="frame__pattern">
+              <div></div><div></div><div></div>
+              <div></div><div></div><div></div>
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 1 — front (paper) -->
+        <div class="frame frame--front">
+          <div class="frame__inner frame__inner--bordered">
+            <p class="frame__text" aria-label="Calle Duquesa 31, Granada">
+              <span class="frame__label">Calle Duquesa</span>
+              <span class="frame__num">31</span>
+              <span class="frame__city">Granada</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.casa {
+  background-color: var(--color-paper);
+  position: relative;
+}
+
+/* Background number */
+.casa::before {
+  content: '02';
+  position: absolute;
+  top: 2rem;
+  right: var(--container-px);
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 14rem);
+  font-weight: 700;
+  color: var(--color-ink-faint);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Grid */
+.casa__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-16);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .casa__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-16);
+  }
+}
+
+@media (min-width: 1024px) {
+  .casa__grid {
+    grid-template-columns: 6fr 5fr;
+  }
+}
+
+/* ---- Content ---- */
+.casa__title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin-bottom: var(--sp-8);
+  letter-spacing: -0.01em;
+}
+
+.casa__title em {
+  font-style: italic;
+  color: var(--color-caribbean);
+}
+
+.casa__highlight {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--color-rum);
+  margin-bottom: var(--sp-8);
+  padding-left: var(--sp-6);
+  border-left: 3px solid var(--color-rum);
+  line-height: 1.5;
+}
+
+.casa__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.85;
+  color: var(--color-ink);
+  opacity: 0.85;
+  max-width: 52ch;
+  margin-bottom: var(--sp-10);
+}
+
+/* Stamp */
+.casa__stamp {
+  display: inline-block;
+}
+
+.stamp__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 2px solid var(--color-caribbean);
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+  justify-content: center;
+  color: var(--color-caribbean);
+  opacity: 0.55;
+  transform: rotate(-8deg);
+}
+
+.stamp__top,
+.stamp__bottom {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stamp__year {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Stacked Frames ---- */
+.frames {
+  position: relative;
+  height: 380px;
+  width: 100%;
+  max-width: 360px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .frames { height: 440px; }
+}
+
+.frame {
+  position: absolute;
+  border-radius: var(--radius-sm);
+}
+
+/* Back frame */
+.frame--back {
+  inset: 0;
+  background-color: var(--color-caribbean);
+  transform: rotate(-4deg) translateY(8px);
+  color: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-8);
+}
+
+/* Mid frame */
+.frame--mid {
+  inset: 0;
+  background-color: var(--color-rum);
+  transform: rotate(2deg) translateY(-4px);
+  overflow: hidden;
+}
+
+.frame__pattern {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  position: absolute;
+  inset: 0;
+  padding: var(--sp-4);
+}
+
+.frame__pattern div {
+  background-color: rgba(243, 231, 211, 0.08);
+  border-radius: 1px;
+}
+
+/* Front frame */
+.frame--front {
+  inset: 0;
+  background-color: var(--color-paper);
+  transform: rotate(0deg);
+  box-shadow: 0 4px 24px rgba(46, 36, 31, 0.15);
+  border: 1px solid var(--color-paper-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame__inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame__inner--bordered {
+  margin: 0.875rem;
+  border: 1px solid var(--color-ink-faint);
+  flex-direction: column;
+}
+
+.frame__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+}
+
+.frame__label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.frame__num {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 18vw, 7rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.frame__city {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-style: italic;
+  color: var(--color-caribbean);
+  letter-spacing: 0.04em;
+}
+</style>

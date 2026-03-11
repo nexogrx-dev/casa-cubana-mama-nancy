@@ -1,0 +1,21 @@
+---
+intro: "No tengo carta fija. Cocino lo que hay ese día, como en mi casa."
+servicio_titulo: "¿Quieres que cocine en tu casa?"
+servicio: "Si te apetece una mesa cubana de verdad, también puedo ir a tu casa y cocinar allí mismo: para un grupo pequeño, una celebración o una cena entre amigos. No es catering: es mi cocina en tu hogar, con mi sazón y mi cariño."
+nota: "Estos son ejemplos de lo que preparo. Cada día la mesa es distinta — según lo que haya y con quién venga."
+items:
+  - name: "Moros y cristianos"
+    desc: "Arroz con frijoles negros. El plato que nunca falta en mi mesa."
+  - name: "Ropa Vieja"
+    desc: "Carne desmechada en salsa criolla, cocinada despacio. La receta de mi casa en La Habana."
+  - name: "Frituras de malanga"
+    desc: "Frituras crujientes como las hacían en mi barrio. Para picar y compartir."
+  - name: "Pollo a la criolla"
+    desc: "Lo dejo cocer con calma, en salsa de tomate, ajo y mis especias. Las prisas no van con mi cocina."
+  - name: "Chicharritas de plátano"
+    desc: "Plátano verde frito y crujiente. En mi casa siempre hay un cuenco sobre la mesa."
+  - name: "Guayaba con queso"
+    desc: "El postre de mi infancia. Dulce de guayaba con queso: sencillo y perfecto."
+  - name: "Dulces del día"
+    desc: "Lo que haya ese día. Siempre algo dulce para terminar bien."
+---
