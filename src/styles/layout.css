@@ -58,10 +58,16 @@ button {
 /* ---- Section spacing ---- */
 
 .section-pad {
-  padding-block: var(--sp-20);
+  padding-block: var(--sp-16);
 }
 
 @media (min-width: 768px) {
+  .section-pad {
+    padding-block: var(--sp-24);
+  }
+}
+
+@media (min-width: 1024px) {
   .section-pad {
     padding-block: var(--sp-32);
   }

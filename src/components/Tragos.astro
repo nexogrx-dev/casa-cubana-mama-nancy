@@ -176,7 +176,8 @@ const colorMap: Record<string, string> = {
 
 /* ---- Shelf illustration ---- */
 .shelf {
-  background-color: var(--color-ink);
+  background-color: rgba(13, 92, 99, 0.1);
+  border: 1px solid rgba(13, 92, 99, 0.2);
   border-radius: var(--radius-sm);
   padding: var(--sp-6) var(--sp-8) var(--sp-4);
   margin-bottom: var(--sp-16);
@@ -190,7 +191,7 @@ const colorMap: Record<string, string> = {
   left: 0;
   right: 0;
   height: 0.5rem;
-  background-color: rgba(217, 164, 65, 0.3);
+  background-color: rgba(46, 36, 31, 0.12);
 }
 
 .shelf__bottles {
@@ -215,7 +216,7 @@ const colorMap: Record<string, string> = {
 .bottle__cap {
   width: 30%;
   height: 0.35rem;
-  background-color: rgba(243, 231, 211, 0.5);
+  background-color: rgba(46, 36, 31, 0.45);
   border-radius: 1px 1px 0 0;
 }
 
@@ -275,6 +276,26 @@ const colorMap: Record<string, string> = {
   flex-direction: column;
   gap: var(--sp-3);
   transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* Slight variation between cards */
+.coctel:nth-child(3n+2) {
+  background-color: var(--color-paper-warm);
+}
+
+.coctel:nth-child(3n+3) {
+  background-color: var(--color-paper-dark);
+  border-color: transparent;
+}
+
+/* First card slightly more spacious on desktop */
+@media (min-width: 1024px) {
+  .coctel:first-child {
+    padding-block: var(--sp-12);
+  }
+  .coctel:nth-child(3n+3) {
+    padding-block: var(--sp-10);
+  }
 }
 
 .coctel:hover {

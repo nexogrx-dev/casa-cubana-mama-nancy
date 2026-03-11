@@ -7,7 +7,7 @@
 
     <!-- Header -->
     <div class="memorias__header reveal">
-      <p class="section-label" style="color: var(--color-sun);">
+      <p class="section-label" style="color: var(--color-caribbean);">
         <span class="section-label__line"></span>
         Mis Memorias · 05
       </p>
@@ -118,8 +118,8 @@
 
 <style>
 .memorias {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: var(--color-paper-warm);
+  color: var(--color-ink);
   position: relative;
   overflow: hidden;
 }
@@ -145,14 +145,14 @@
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
-  color: var(--color-paper);
+  color: var(--color-ink);
   margin-bottom: var(--sp-6);
 }
 
 .memorias__title em {
   font-style: italic;
   font-weight: 400;
-  color: rgba(243, 231, 211, 0.45);
+  color: rgba(46, 36, 31, 0.42);
   font-size: 0.7em;
   display: block;
   line-height: 1.3;
@@ -161,7 +161,7 @@
 .memorias__intro {
   font-family: var(--font-body);
   font-size: var(--text-lg);
-  color: rgba(243, 231, 211, 0.6);
+  color: var(--color-ink-muted);
   max-width: 48ch;
   line-height: 1.8;
   font-style: italic;
@@ -214,12 +214,12 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   }
 
-  /* Absolute positions */
-  .polaroid--1 { top: 0;    left: 0%;   transform: rotate(-3deg);  width: 180px; }
-  .polaroid--2 { top: 20px; left: 22%;  transform: rotate(2.5deg); width: 195px; }
-  .polaroid--3 { top: -10px; left: 44%; transform: rotate(-1.5deg); width: 160px; }
-  .polaroid--4 { top: 30px; left: 62%;  transform: rotate(3deg);   width: 185px; }
-  .polaroid--5 { top: 5px;  left: 80%;  transform: rotate(-2deg);  width: 175px; }
+  /* Absolute positions — varied sizes for editorial feel */
+  .polaroid--1 { top: 8px;   left: 0%;   transform: rotate(-3deg);   width: 162px; }
+  .polaroid--2 { top: 0;     left: 20%;  transform: rotate(2.5deg);  width: 225px; }
+  .polaroid--3 { top: -8px;  left: 47%;  transform: rotate(-2deg);   width: 140px; }
+  .polaroid--4 { top: 25px;  left: 62%;  transform: rotate(3.5deg);  width: 202px; }
+  .polaroid--5 { top: 4px;   left: 81%;  transform: rotate(-1.5deg); width: 168px; }
 }
 
 .polaroid__photo {
@@ -279,7 +279,7 @@
   max-width: var(--max-w-prose);
   margin-inline: auto;
   text-align: center;
-  border-top: 1px solid rgba(243, 231, 211, 0.12);
+  border-top: 1px solid var(--color-ink-faint);
   padding-top: var(--sp-12);
 }
 
@@ -287,7 +287,7 @@
   font-family: var(--font-display);
   font-size: clamp(var(--text-xl), 3.5vw, var(--text-3xl));
   font-style: italic;
-  color: rgba(243, 231, 211, 0.8);
+  color: var(--color-ink);
   line-height: 1.5;
   margin-bottom: var(--sp-6);
 }
@@ -297,6 +297,6 @@
   font-size: var(--text-xs);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-sun);
+  color: var(--color-rum);
 }
 </style>

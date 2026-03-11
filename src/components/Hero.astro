@@ -128,28 +128,29 @@ const waLink = `https://wa.me/34634080799?text=${encodeURIComponent("Hola Mamá 
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding-bottom: var(--sp-12);
+  padding-bottom: var(--sp-8);
 }
 
 .hero__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--sp-12);
-  padding-block: var(--sp-12);
+  gap: var(--sp-10);
+  padding-block: var(--sp-8);
   align-items: center;
 }
 
 @media (min-width: 768px) {
   .hero__grid {
     grid-template-columns: 1fr 1fr;
-    gap: var(--sp-16);
+    gap: var(--sp-12);
+    padding-block: var(--sp-12);
   }
 }
 
 @media (min-width: 1024px) {
   .hero__grid {
-    grid-template-columns: 11fr 7fr;
-    gap: var(--sp-20);
+    grid-template-columns: 7fr 5fr;
+    gap: var(--sp-16);
   }
 }
 
@@ -255,11 +256,15 @@ const waLink = `https://wa.me/34634080799?text=${encodeURIComponent("Hola Mamá 
 .poster {
   position: relative;
   width: 100%;
-  max-width: 310px;
+  max-width: 385px;
 }
 
 @media (min-width: 768px) {
-  .poster { max-width: 360px; }
+  .poster { max-width: 455px; }
+}
+
+@media (min-width: 1024px) {
+  .poster { max-width: 500px; }
 }
 
 /* Shadow layers */
